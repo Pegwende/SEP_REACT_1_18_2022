@@ -97,3 +97,48 @@ a{
    font-weight: lighter;
    color: rgba(95, 95, 224, 0.767)
 }
+
+
+
+
+
+@media only screen and (max-width: 600px) {
+    .content{
+        text-align: center;
+    }
+
+
+._2_box_inline{
+    display: inline;
+}
+
+
+.box > input{
+    width: 250px;
+}
+
+
+.btn_container{
+    box-sizing: content-box;
+    display: inline;
+}
+
+.btn_container > button{
+    width: 125px;
+    height: 50px;
+}
+
+
+.checkbox_Content{
+    display: inline ;
+}
+
+.checkbox{
+    margin-top: 0px;
+}
+
+.para > p{
+    margin: 10px;
+}
+
+}
