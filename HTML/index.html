@@ -5,40 +5,50 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <style src="style.css"></style>
+    <link rel="stylesheet" href="./styles.css">
 </head>
+
 <body>
-    <h1>Sign Up</h1>
-    <form>
-        <div>
-            <input type="text" placeholder="First Name">
-            <input type="text" placeholder="Last Name">
-        </div>
-
-        <div>
-            <input type="text" placeholder="Mobile No.">
-        </div>
-
-        <div>
-            <input type="text" placeholder="Email Address">
-        </div>
-
-        <div>
-            <input type="text" placeholder="Password">
-            <input type="text" placeholder="Confirm Password">
-        </div>
-        
-        <div>
-            <input type="checkbox"> I Agree
-            <p>By clicking <span>register</span>, you agree the the <span>Terms and Conditions</span> set</p>
-            <p>out by this site, including our Cookie Use.</p>
-        </div>
-
-        <div>
-            <button>Register</button>
-            <button>Sign In</button>
-        </div>
-
-    </form>
+    <main class="content">
+        <h1>Sign Up</h1>
+        <form>
+            <section class="_2_box_inline">
+                <input type="text" placeholder="First Name">
+                <input type="text" placeholder="Last Name">
+            </section>
+    
+            <section class="box">
+                <input type="text" placeholder="Mobile No.">
+            </section>
+    
+            <section class="box">
+                <input type="text" placeholder="Email Address">
+            </section>
+    
+            <section class="_2_box_inline" >
+                <input type="text" placeholder="Password">
+                <input type="text" placeholder="Confirm Password">
+            </section>
+            
+            <div class="checkbox_Content">
+                <section class="checkbox">
+                    <input type="checkbox"> I Agree
+                </section>
+                
+                <section class="para">
+                    <p>By clicking <button class="btn_p">register</button>, you agree the the <a href="#" >Terms and Conditions</a> set</p>
+                    <p>out by this site, including our Cookie Use.</p>
+                </section>
+    
+            </div>
+    
+            <section class="btn_container">
+                <button class="btn">Register</button>
+                <button class="btn2">Sign In</button>
+            </section>
+    
+        </form>
+    </main>
+ 
 </body>
 </html>
