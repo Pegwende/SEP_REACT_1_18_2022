@@ -1,0 +1,76 @@
+:root{
+    --dark: #66666f;
+    --white: #c9bbbbaf;
+    --red: #ff0000;
+    --purple: #800080;
+    --whiter: #ffffff;
+}
+
+body{
+    margin: auto 20%;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--dark);
+}
+
+header > h1{
+    color: var(--white)
+}
+
+.body-header{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    margin-top: -15px;
+}
+.search-input{
+    padding:7px;
+    background-color: #3d4e82ac;
+    color: var(--white);
+    flex: 1 1 0%;
+    border-radius: 10px;
+    font-size: large;
+}
+.search-btn{
+    color: var(--purple);
+    background-color: transparent;
+    border: none;
+    border-radius: 10px;
+    font-size: large;
+    cursor: pointer;
+}
+
+main >h2{
+    color: var(--white);
+}
+.task-body{
+    display: flex;
+    flex-direction: column;
+}
+.task-item{
+
+}
+.input-item{
+    background-color:black;
+    color: var(--whiter);
+    padding: 7px;
+    border-radius: 10px;
+    width: 60%;
+
+}
+.edit-btn{
+    background-color:black;
+    color: var(--purple);
+    padding: 7px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+.delete-btn{
+    background-color:black;
+    color: var(--red);
+    padding: 7px;
+    border-radius: 10px;
+    cursor: pointer;
+}
