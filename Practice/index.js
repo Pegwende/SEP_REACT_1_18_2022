@@ -4,7 +4,7 @@ const taskBody = document.querySelector(".task-body");
 const taskItem = document.querySelector(".task-item");
 const searchBtn = document.querySelector(".search-btn");
 // const toDelete = document.querySelector(".delete-btn")
-const editBtn = document.querySelector(".edit-btn")
+
 let inputValue = "";
 
 // theInput.addEventListener("keyup",(event)=>{
@@ -65,11 +65,16 @@ let inputValue = "";
 //     })
 // })
 
+// function updateTask (){
+//     editBtn.removeAttribute("readonly")
+//     editBtn.innerHTML = "SAVE"
+    
+// }
 function createTask(task) {
   // const taskBody = document.querySelector(".task-body")
   const taskHTML = `
             <div class="task-item">
-                <input class="input-item" type="text" value="${task.name}" readonly>
+                <input class="input-item" id="taskInput${task.id}" type="text" value="${task.name}" readonly>
                 <input class="edit-btn" type="submit" value="EDIT" data-id="${task.id}"> 
                 <input  class="delete-btn" type="submit" value="DELETE" data-id="${task.id}"> 
             </div>`;
@@ -132,39 +137,46 @@ const deleteData = (id) =>{
 
 }
 
-const updateData = (id, arg) =>{
+const updateData = (id, value) =>{
     const task = {
-        "name": arg
+        "name": value
     }
     fetch("http://localhost:8000/tasks/"+ id, {
         method: "PUT",
         body: JSON.stringify(task),
         headers: {
-            "Content-Type": "applicstion/json",
+            "Content-Type": "application/json",
         },
     })
     .then((response) => response.text())
-    .then(res=>console.log(res))
+    .then(res=> console.log(res))
 }
 
 
 taskBody.addEventListener("click", (event)=>{
-    let getId = event.target.getAttribute('data-id')
+    let taskId = event.target.getAttribute('data-id')
     let getValue = event.target.value
     // let theTask = event.target.parentElement[0]
-    console.log(getId, getValue)
+    console.log(taskId, getValue)
 
     if( getValue.toLowerCase() === "delete"){
-        console.log(getId)
-        deleteData(getId)
+        console.log(taskId)
+        deleteData(taskId)
     } 
     
     if( getValue.toLowerCase() === "edit"){
-        editBtn.removeAttribute("readonly")
-        editBtn.innerHTML= "SAVE"
-        console.log(getId)
-        updateData(theId)
-        
+        const editBtn = document.querySelector(".edit-btn")
+        const updateInput = document.getElementById(`taskInput${taskId}`)
+        updateInput.removeAttribute("readonly")
+      
+        editBtn.value = "SAVE"
+        console.log(taskId)
+        //updateData(getId)        
+    }
+    if( getValue.toLowerCase() === "save"){
+        const updateInput = document.getElementById(`taskInput${taskId}`)
+        console.log(taskId)
+        updateData(taskId, updateInput.value) ;       
     }
     
 })
