@@ -1,10 +1,11 @@
 // window.addEventListener('load', ()=>{
-    const theInput = document.querySelector(".search-input")
-    const taskBody = document.querySelector(".task-body")
-    const taskItem = document.querySelector(".task-item")
-    const searchBtn = document.querySelector(".search-btn")
-    // const toDelete = document.querySelector(".delete-btn")
-    let inputValue=''
+const theInput = document.querySelector(".search-input");
+const taskBody = document.querySelector(".task-body");
+const taskItem = document.querySelector(".task-item");
+const searchBtn = document.querySelector(".search-btn");
+// const toDelete = document.querySelector(".delete-btn")
+const editBtn = document.querySelector(".edit-btn")
+let inputValue = "";
 
 // theInput.addEventListener("keyup",(event)=>{
 //     inputValue = theInput.value
@@ -32,7 +33,6 @@
 //     newDelete.value ="DELETE"
 //     newDelete.type ="submit"
 
-
 //     newElement.classList.add("input-item")
 //     newEdit.classList.add("edit-btn")
 //     newDelete.classList.add("delete-btn")
@@ -40,7 +40,7 @@
 //     newDivItem.append(newElement)
 //     newDivItem.append(newEdit)
 //     newDivItem.append(newDelete)
-    
+
 //     taskBody.append(newDivItem)
 
 //     inputValue=""
@@ -65,72 +65,62 @@
 //     })
 // })
 
-
-
-
-
-function createTask(name){
-    // const taskBody = document.querySelector(".task-body")
-    const task=`
+function createTask(task) {
+  // const taskBody = document.querySelector(".task-body")
+  const taskHTML = `
             <div class="task-item">
-                <input class="input-item" type="text" value="${name}" readonly>
-                <input class="edit-btn" type="submit" value="EDIT">
-                <input  class="delete-btn" type="submit" value="DELETE"> 
-            </div>`
+                <input class="input-item" type="text" value="${task.name}" readonly>
+                <input class="edit-btn" type="submit" value="EDIT" data-id="${task.id}"> 
+                <input  class="delete-btn" type="submit" value="DELETE" data-id="${task.id}"> 
+            </div>`;
 
-            const position = "beforeend"
+  const position = "afterbegin";
 
-    taskBody.insertAdjacentHTML(position, task)
-
+  taskBody.insertAdjacentHTML(position, taskHTML);
 }
 
+const getData = (() => {
+  fetch("http://localhost:8000/tasks/")
+    .then((response) => response.json())
+    .then((datas) => {
+      datas.forEach((data) => {
+        createTask(data);
+      });
+    });
+})();
 
+theInput.addEventListener("keyup", (event) => {
+  inputValue = event.target.value;
+})
 
-const getData  =( () =>{
-     fetch("http://localhost:8000/tasks/")
-        .then(response => response.json())
-        .then(datas => {
-            datas.forEach((data)=>{
-                createTask(data.name)
-            })
-        })
-})()
+searchBtn.addEventListener("click", () => {
+  console.log(inputValue);
+  if (inputValue === "") {
+    alert(" type something ");
+    return;
+  } else {
+    postData(inputValue)
+    inputValue = ""
+    theInput.value = ""
 
+  }
+});
 
-
-theInput.addEventListener("keyup",(event)=>{
-    inputValue = theInput.value
-    console.log(inputValue)
-
-    searchBtn.addEventListener('click', ()=>{
-        if ( inputValue === ""){
-            alert(" type something ")
-            return;
-        } else{
-            createTask(inputValue)
-            inputValue = ""
-        }
-    })
-
-} )
-
-
-
-const postData =() =>{
-    let task = {
-        "name": "go to a restaurant at 12"
+const postData = (arg) => {
+    const task = {
+        "name": arg
     }
-
-    fetch("http://localhost:8000/tasks", {
-        method: "POST",
-        body: JSON.stringify(task),
-        headers: {
-            "Content-type": "application/json; charset=UTF-8",
-        },
-    }).then((response) => response.json());
-}
-
-postData()
+  fetch("http://localhost:8000/tasks", {
+    method: "POST",
+    body: JSON.stringify(task),
+    headers: {
+      "Content-type": "application/json; charset=UTF-8",
+    },
+  }).then((response) => {
+      response.json();
+      console.log(response);
+  });
+};
 
 
 const deleteData = (id) =>{
@@ -142,18 +132,39 @@ const deleteData = (id) =>{
 
 }
 
+const updateData = (id, arg) =>{
+    const task = {
+        "name": arg
+    }
+    fetch("http://localhost:8000/tasks/"+ id, {
+        method: "PUT",
+        body: JSON.stringify(task),
+        headers: {
+            "Content-Type": "applicstion/json",
+        },
+    })
+    .then((response) => response.text())
+    .then(res=>console.log(res))
+}
 
 
 taskBody.addEventListener("click", (event)=>{
-    let val = +event.target.id
-    deleteData(val)
-    console.log(val)
-})
+    let getId = event.target.getAttribute('data-id')
+    let getValue = event.target.value
+    // let theTask = event.target.parentElement[0]
+    console.log(getId, getValue)
 
-window.addEventListener("load", ()=>{
+    if( getValue.toLowerCase() === "delete"){
+        console.log(getId)
+        deleteData(getId)
+    } 
+    
+    if( getValue.toLowerCase() === "edit"){
+        editBtn.removeAttribute("readonly")
+        editBtn.innerHTML= "SAVE"
+        console.log(getId)
+        updateData(theId)
+        
+    }
     
 })
-
-
-
-// })
